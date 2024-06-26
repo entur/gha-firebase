@@ -22,11 +22,12 @@ jobs:
           service_account: ${{ vars.SERVICE_ACCOUNT }}
           create_credentials_file: true
 
-      - run: |
-          echo "SERVICE_ACCOUNT_KEY=$(cat "${{ steps.auth.outputs.credentials_file_path }}" | tr -d '\n')" >> $GITHUB_ENV
+      # - run: |
+      #     echo "SERVICE_ACCOUNT_KEY=$(cat "${{ steps.auth.outputs.credentials_file_path }}" | tr -d '\n')" >> $GITHUB_ENV
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          firebaseServiceAccount: "${{ env.SERVICE_ACCOUNT_KEY }}"
+          # firebaseServiceAccount: "${{ env.SERVICE_ACCOUNT_KEY }}"
+          firebaseServiceAccount: "${{ steps.auth.outputs.credentials_file_path }}"
           projectId: ent-ghafb-dev
           entryPoint: fixture
