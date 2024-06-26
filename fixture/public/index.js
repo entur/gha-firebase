@@ -12,11 +12,7 @@ const firebaseConfig = {
 };
 
 var db = undefined;
- 
-function activate() {
-    await fetch("desc");
-}
- 
+
 async function fetch(order) {
     let entries = await db.collection("journal-entries").orderBy("date", order).get();
     document.querySelector("#journal").innerHTML = "";
@@ -52,5 +48,5 @@ async function fetch(order) {
 window.addEventListener("load", async function () {
     firebase.initializeApp(firebaseConfig);
     db = firebase.firestore();
-    activate();
+    await fetch("desc");
 });
