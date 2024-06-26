@@ -33,10 +33,8 @@ async function fetch(order) {
         author.classList = ["author"]
  
         let footer = document.createElement("footer");
-        footer.appendChild(description);
         footer.appendChild(author);
         let div = document.createElement("article");
-        div.id = entry.id;
         div.classList = ["entry"];
         div.appendChild(description);
         div.appendChild(footer);
