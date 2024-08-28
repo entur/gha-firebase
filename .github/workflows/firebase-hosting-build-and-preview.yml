@@ -1,4 +1,4 @@
-name: Entur/Firebase/Build_and_preview
+name: Entur/Firebase/Preview
 
 # used for creating firebase previews for use in ie: PRs
 
@@ -17,6 +17,13 @@ on:
         type: string
         description: "Entry point folder to deploy"
         default: "."
+      build_artifact_name:
+        description: "Name of GitHub artifact to add to build"
+        type: string
+      build_artifact_path:
+        description: "Path to the artifact"
+        type: string
+        default: "build"
       preview_expire:
         type: string
         description: "Preview expire time"
@@ -27,7 +34,7 @@ on:
         default: 20
 
 jobs:
-  build_and_deploy:
+  deploy_preview:
     permissions:
       checks: write
       contents: read
@@ -50,6 +57,13 @@ jobs:
 
       - run: |
           echo "SERVICE_ACCOUNT_KEY=$(cat "${{ steps.auth.outputs.credentials_file_path }}" | tr -d '\n')" >> $GITHUB_ENV
+
+      - id: download-artifact
+        uses: actions/download-artifact@v4
+        if: inputs.build_artifact_name != ''
+        with:
+          name: ${{ inputs.build_artifact_name }}
+          path: ${{ inputs.build_artifact_path }}
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
