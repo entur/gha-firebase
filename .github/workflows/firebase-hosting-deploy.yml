@@ -28,12 +28,12 @@ on:
         default: 20
     outputs:
       url:
-        value: ${{ jobs.deploy_preview.outputs.preview_url }}
+        value: ${{ jobs.deploy.outputs.url }}
       all_urls:
-        value: ${{ jobs.deploy_preview.outputs.all_urls }}
+        value: ${{ jobs.deploy.outputs.all_urls }}
 
 jobs:
-  deploy_preview:
+  deploy:
     permissions:
       checks: write
       contents: read
@@ -43,7 +43,7 @@ jobs:
     timeout-minutes: ${{ inputs.timeout_minutes }}
     environment: ${{ inputs.environment }}
     outputs:
-      preview_url: ${{ steps.firebase-deploy.outputs.details_url }}
+      url: ${{ steps.firebase-deploy.outputs.details_url }}
       all_urls: ${{ steps.firebase-deploy.outputs.urls }}
     steps:
       - uses: actions/checkout@v4
