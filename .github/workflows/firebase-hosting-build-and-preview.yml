@@ -1,0 +1,59 @@
+name: Entur/Firebase/Build_and_preview
+
+# used for creating firebase previews for PRs
+
+on:
+  workflow_call:
+    inputs:
+      app_id:
+        required: true
+        type: string
+        description: "AppFactory ID, required to deploy to correct gcp project"
+      environment:
+        required: true
+        type: string
+        description: "Environment to deploy to (dev, tst, prd)"
+      entryPoint:
+        type: string
+        description: "Entry point folder to deploy"
+        default: "."
+      preview_expire:
+        type: string
+        description: "Preview expire time"
+        default: "7d"
+      timeout_minutes:
+        description: "Timeout in minutes"
+        type: number
+        default: 40
+
+jobs:
+  build_and_deploy:
+    permissions:
+      checks: write
+      contents: read
+      pull-requests: write
+      id-token: write
+    runs-on: ubuntu-latest
+    timeout-minutes: ${{ inputs.timeout_minutes }}
+    environment: ${{ inputs.environment }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - id: auth
+        uses: "google-github-actions/auth@v2"
+        with:
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.SERVICE_ACCOUNT }}
+          create_credentials_file: true
+
+      - run: |
+          echo "SERVICE_ACCOUNT_KEY=$(cat "${{ steps.auth.outputs.credentials_file_path }}" | tr -d '\n')" >> $GITHUB_ENV
+
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          firebaseServiceAccount: "${{ env.SERVICE_ACCOUNT_KEY }}"
+          projectId: ent-${{ inputs.app_id}}-${{ inputs.environment }}
+          entryPoint: ${{ inputs.entryPoint }}
+          expires: ${{ inputs.preview_expire }}
