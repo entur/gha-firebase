@@ -84,23 +84,13 @@ jobs:
       - name: Add comment with preview url
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v7
-        env:
-          PREVIEW_URL: ${{ steps.firebase-deploy.outputs.details_url }}
-          ENV: ${{ inputs.environment }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const { data: pullRequest } = await github.pulls.get.endpoint.merge({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.issue.number
-            });
-            const ENV = process.env.ENV;
-            const PREVIEW_URL = process.env.PREVIEW_URL;
-            const comment = `Preview for this PR in ${DEV} is available at ${PREVIEW_URL}`;
+            const comment = `Preview for this PR in ${{ inputs.environment }} is available at ${{ steps.firebase-deploy.outputs.details_url }}`;
             await github.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: pullRequest.number,
+              owner: ${{ github.repository_owner }},
+              repo: ${{ github.repository }},
+              issue_number: ${{ github.event.number }},
               body: comment
             });
