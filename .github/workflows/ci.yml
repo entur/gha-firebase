@@ -27,4 +27,4 @@ jobs:
     steps:
       - name: Run tests
         run: |
-          curl --silent --show-error --connect-timeout 10 -I ${PREVIEW_URL}|grep 200  && echo "Success" || echo "Failed" && exit 1
+          curl --silent --show-error --connect-timeout 10 -I ${PREVIEW_URL} --fail
