@@ -89,9 +89,11 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            await github.rest.issues.createComment({
-              owner: ${{ github.repository_owner }},
-              repo: ${{ github.repository }},
-              issue_number: ${{ github.event.number }},
-              body: process.env.MESSAGE_BODY
+            github.issues.updateComment({
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: process.env.MESSAGE_BODY
+              })
             });
