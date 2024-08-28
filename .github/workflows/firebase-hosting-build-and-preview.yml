@@ -57,3 +57,23 @@ jobs:
           projectId: ${{ inputs.gcp_project_id }}
           entryPoint: ${{ inputs.entryPoint }}
           expires: ${{ inputs.preview_expire }}
+
+      - name: Add comment with preview url
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { data: pullRequest } = await github.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+            const previewUrl = `https://${process.env.GITHUB_HEAD_REF}-${process.env.GITHUB_SHA.slice(0, 7)}-${process.env.GITHUB_RUN_NUMBER}-${process.env.GITHUB_RUN_ID}.web.app`;
+            const comment = `Preview available at ${previewUrl}`;
+            await github.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pullRequest.number,
+              body: comment
+            });
