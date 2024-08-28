@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: firebase-preview-dev
     env:
-      PREVIEW_URL: ${{ needs.firebase-preview-dev.outputs.preview_url }}
+      PREVIEW_URL: ${{ needs.firebase-preview-dev.outputs.details_url }}
     steps:
       - name: Run tests
         run: |
@@ -41,9 +41,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: firebase-deploy-dev
     env:
-      URL: ${{ needs.firebase-deploy-dev.outputs.url }}
+      TEST_URL: ${{ needs.firebase-deploy-dev.outputs.details_url }}
     steps:
       - name: Run tests
         run: |
-          curl --fail --silent --show-error --connect-timeout 10 -I ${URL}
+          curl --fail --silent --show-error --connect-timeout 10 -I ${TEST_URL}
   # TODO Test artifact up/download ?
