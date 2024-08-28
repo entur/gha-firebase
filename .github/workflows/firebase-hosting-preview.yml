@@ -49,8 +49,8 @@ jobs:
     timeout-minutes: ${{ inputs.timeout_minutes }}
     environment: ${{ inputs.environment }}
     outputs:
-      details_url: ${{ steps.firebase-deploy.outputs.details_url }}
-      urls: ${{ steps.firebase-deploy.outputs.urls }}
+      details_url: ${{ steps.firebase-deploy-preview.outputs.details_url }}
+      urls: ${{ steps.firebase-deploy-preview.outputs.urls }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -73,7 +73,7 @@ jobs:
           name: ${{ inputs.build_artifact_name }}
           path: ${{ inputs.build_artifact_path }}
 
-      - id: firebase-deploy
+      - id: firebase-deploy-preview
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           firebaseServiceAccount: "${{ env.SERVICE_ACCOUNT_KEY }}"
@@ -85,7 +85,7 @@ jobs:
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v7
         env:
-          MESSAGE_BODY: "Preview for this PR in ${{ inputs.environment }} is available at ${{ steps.firebase-deploy.outputs.details_url }}"
+          MESSAGE_BODY: "Preview for this PR in ${{ inputs.environment }} is available at ${{ steps.firebase-deploy-preview.outputs.details_url }}"
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
