@@ -93,5 +93,5 @@ jobs:
               owner: ${{ github.repository_owner }},
               repo: ${{ github.repository }},
               issue_number: ${{ github.event.number }},
-              body: process.env.MESSAGE_BODY
+              body: `process.env.MESSAGE_BODY`
             });
