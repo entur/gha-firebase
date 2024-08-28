@@ -27,4 +27,22 @@ jobs:
     steps:
       - name: Run tests
         run: |
-          curl --silent --show-error --connect-timeout 10 -I ${PREVIEW_URL} --fail
+          curl --fail --silent --show-error --connect-timeout 10 -I ${PREVIEW_URL}
+  firebase-deploy-dev:
+    name: Firebase Hosting Deploy
+    uses: ./.github/workflows/firebase-hosting-deploy.yml
+    with:
+      gcp_project_id: ent-ghafb-dev
+      environment: dev
+      entryPoint: fixture
+  post-deploy-tests:
+    name: Run tests after deploy
+    runs-on: ubuntu-latest
+    needs: firebase-deploy-dev
+    env:
+      URL: ${{ needs.firebase-deploy-dev.outputs.url }}
+    steps:
+      - name: Run tests
+        run: |
+          curl --fail --silent --show-error --connect-timeout 10 -I ${URL}
+  # TODO Test artifact up/download ?

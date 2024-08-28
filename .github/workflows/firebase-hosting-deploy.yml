@@ -1,0 +1,91 @@
+name: Entur/Firebase/Deploy
+
+on:
+  workflow_call:
+    inputs:
+      gcp_project_id:
+        required: true
+        type: string
+        description: "GCP Project ID"
+      environment:
+        required: true
+        type: string
+        description: "Environment to deploy to (dev, tst, prd)"
+      entryPoint:
+        type: string
+        description: "Entry point folder to deploy"
+        default: "."
+      build_artifact_name:
+        description: "Name of GitHub artifact to add to build"
+        type: string
+      build_artifact_path:
+        description: "Path to the artifact"
+        type: string
+        default: "build"
+      timeout_minutes:
+        description: "Timeout in minutes"
+        type: number
+        default: 20
+    outputs:
+      url:
+        value: ${{ jobs.deploy_preview.outputs.preview_url }}
+      all_urls:
+        value: ${{ jobs.deploy_preview.outputs.all_urls }}
+
+jobs:
+  deploy_preview:
+    permissions:
+      checks: write
+      contents: read
+      pull-requests: write
+      id-token: write
+    runs-on: ubuntu-latest
+    timeout-minutes: ${{ inputs.timeout_minutes }}
+    environment: ${{ inputs.environment }}
+    outputs:
+      preview_url: ${{ steps.firebase-deploy.outputs.details_url }}
+      all_urls: ${{ steps.firebase-deploy.outputs.urls }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - id: auth
+        uses: "google-github-actions/auth@v2"
+        with:
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.SERVICE_ACCOUNT }}
+          create_credentials_file: true
+
+      - run: |
+          echo "SERVICE_ACCOUNT_KEY=$(cat "${{ steps.auth.outputs.credentials_file_path }}" | tr -d '\n')" >> $GITHUB_ENV
+
+      - id: download-artifact
+        uses: actions/download-artifact@v4
+        if: inputs.build_artifact_name != ''
+        with:
+          name: ${{ inputs.build_artifact_name }}
+          path: ${{ inputs.build_artifact_path }}
+
+      - id: firebase-deploy
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          firebaseServiceAccount: "${{ env.SERVICE_ACCOUNT_KEY }}"
+          projectId: ${{ inputs.gcp_project_id }}
+          entryPoint: ${{ inputs.entryPoint }}
+          channelId: live
+
+      - name: Add comment with the web url
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        env:
+          MESSAGE_BODY: "Default url in ${{ inputs.environment }} is available at ${{ steps.firebase-deploy.outputs.details_url }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: process.env.MESSAGE_BODY
+            });
