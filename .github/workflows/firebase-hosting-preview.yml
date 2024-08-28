@@ -85,22 +85,13 @@ jobs:
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v7
         env:
-          PREVIEW_URL: ${{ steps.firebase-deploy.outputs.details_url }}
-          ENV: ${{ inputs.environment }}
+          MESSAGE_BODY: "Preview for this PR in ${{ inputs.environment }} is available at ${{ steps.firebase-deploy.outputs.details_url }}"
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const { data: pullRequest } = await github.pulls.get.endpoint.merge({
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              pull_number: context.issue.number
-            });
-            const ENV = process.env.ENV;
-            const PREVIEW_URL = process.env.PREVIEW_URL;
-            const comment = `Preview for this PR in ${DEV} is available at ${PREVIEW_URL}`;
-            await github.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: pullRequest.number,
-              body: comment
+              body: process.env.MESSAGE_BODY
             });
