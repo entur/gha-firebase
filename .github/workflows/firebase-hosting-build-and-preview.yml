@@ -1,6 +1,6 @@
 name: Entur/Firebase/Build_and_preview
 
-# used for creating firebase previews for PRs
+# used for creating firebase previews for use in ie: PRs
 
 on:
   workflow_call:
