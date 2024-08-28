@@ -5,10 +5,10 @@ name: Entur/Firebase/Build_and_preview
 on:
   workflow_call:
     inputs:
-      app_id:
+      gcp_project_id:
         required: true
         type: string
-        description: "AppFactory ID, required to deploy to correct gcp project"
+        description: "GCP Project ID"
       environment:
         required: true
         type: string
@@ -24,7 +24,7 @@ on:
       timeout_minutes:
         description: "Timeout in minutes"
         type: number
-        default: 40
+        default: 20
 
 jobs:
   build_and_deploy:
@@ -54,6 +54,6 @@ jobs:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           firebaseServiceAccount: "${{ env.SERVICE_ACCOUNT_KEY }}"
-          projectId: ent-${{ inputs.app_id}}-${{ inputs.environment }}
+          projectId: ${{ inputs.gcp_project_id }}
           entryPoint: ${{ inputs.entryPoint }}
           expires: ${{ inputs.preview_expire }}
