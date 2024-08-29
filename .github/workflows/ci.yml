@@ -16,7 +16,7 @@ jobs:
     with:
       gcp_project_id: ent-ghafb-dev
       environment: dev
-      entryPoint: fixture
+      entry_point: fixture
       preview_expire: 1d
   tests:
     name: Run tests
@@ -35,15 +35,16 @@ jobs:
     with:
       gcp_project_id: ent-ghafb-dev
       environment: dev
-      entryPoint: fixture
-  post-deploy-tests:
-    name: Run tests after deploy
-    runs-on: ubuntu-latest
-    needs: firebase-deploy-dev
-    env:
-      TEST_URL: ${{ needs.firebase-deploy-dev.outputs.details_url }}
-    steps:
-      - name: Run tests
-        run: |
-          curl --fail --silent --show-error --connect-timeout 10 -I ${TEST_URL}
+      entry_point: fixture
+  # Commented out due to bug in https://github.com/FirebaseExtended/action-hosting-deploy/issues/388
+  # post-deploy-tests:
+  #   name: Run tests after deploy
+  #   runs-on: ubuntu-latest
+  #   needs: firebase-deploy-dev
+  #   env:
+  #     TEST_URL: ${{ needs.firebase-deploy-dev.outputs.details_url }}
+  #   steps:
+  #     - name: Run tests
+  #       run: |
+  #         curl --fail --silent --show-error --connect-timeout 10 -I ${TEST_URL}
   # TODO Test artifact up/download ?

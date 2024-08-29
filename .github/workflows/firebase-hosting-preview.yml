@@ -13,7 +13,7 @@ on:
         required: true
         type: string
         description: "Environment to deploy to (dev, tst, prd)"
-      entryPoint:
+      entry_point:
         type: string
         description: "Entry point folder to deploy"
         default: "."
@@ -78,7 +78,7 @@ jobs:
         with:
           firebaseServiceAccount: "${{ env.SERVICE_ACCOUNT_KEY }}"
           projectId: ${{ inputs.gcp_project_id }}
-          entryPoint: ${{ inputs.entryPoint }}
+          entryPoint: ${{ inputs.entry_point }}
           expires: ${{ inputs.preview_expire }}
 
       - name: Add comment with preview url

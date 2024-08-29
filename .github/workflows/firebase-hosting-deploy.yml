@@ -11,9 +11,9 @@ on:
         required: true
         type: string
         description: "Environment to deploy to (dev, tst, prd)"
-      entryPoint:
+      entry_point:
         type: string
-        description: "Entry point folder to deploy"
+        description: "Entry point folder to deploy (Same folder as .firebase.json is located)"
         default: "."
       build_artifact_name:
         description: "Name of GitHub artifact to add to build"
@@ -72,14 +72,14 @@ jobs:
         with:
           firebaseServiceAccount: "${{ env.SERVICE_ACCOUNT_KEY }}"
           projectId: ${{ inputs.gcp_project_id }}
-          entryPoint: ${{ inputs.entryPoint }}
+          entryPoint: ${{ inputs.entry_point }}
           channelId: live
 
       - name: Add comment with the web url
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v7
         env:
-          MESSAGE_BODY: "The firebase hosting site in ${{ inputs.environment }} is available at ${{ steps.firebase-deploy.outputs.details_url }}"
+          MESSAGE_BODY: "The firebase hosting site in ${{ inputs.environment }} is deployed to the live channel" # pending bugfix: is available at ${{ steps.firebase-deploy.outputs.details_url }}"
           ALL_URLS: ${{ steps.firebase-deploy.outputs.urls }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
