@@ -4,7 +4,7 @@ on:
 
 permissions:
   checks: write
-  contents: read
+  contents: write
   pull-requests: write
   id-token: write
   issues: write
@@ -48,3 +48,17 @@ jobs:
   #       run: |
   #         curl --fail --silent --show-error --connect-timeout 10 -I ${TEST_URL}
   # TODO Test artifact up/download ?
+
+  update-firebase-hosting-deploy-doc:
+    needs: [firebase-deploy-dev]
+    uses: entur/gha-meta/.github/workflows/auto-doc.yml@v1
+    with:
+      workflow_file: .github/workflows/firebase-hosting-deploy.yml
+      readme_file: README-firebase-hosting-deploy.md
+
+  update-firebase-hosting-preview-doc:
+    needs: [update-firebase-hosting-deploy-doc]
+    uses: entur/gha-meta/.github/workflows/auto-doc.yml@v1
+    with:
+      workflow_file: .github/workflows/firebase-hosting-preview.yml
+      readme_file: README-firebase-hosting-preview.md
