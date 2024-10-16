@@ -41,7 +41,6 @@ on:
 jobs:
   deploy_preview:
     permissions:
-      checks: write
       contents: read
       pull-requests: write
       id-token: write
@@ -52,8 +51,6 @@ jobs:
       details_url: ${{ steps.firebase-deploy-preview.outputs.details_url }}
       urls: ${{ steps.firebase-deploy-preview.outputs.urls }}
     steps:
-      - uses: GitHubSecurityLab/actions-permissions/monitor@v1
-
       - name: Checkout
         uses: actions/checkout@v4
         with:

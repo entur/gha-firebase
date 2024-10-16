@@ -35,7 +35,6 @@ on:
 jobs:
   deploy:
     permissions:
-      checks: write
       contents: read
       pull-requests: write
       id-token: write
@@ -46,8 +45,6 @@ jobs:
       details_url: ${{ steps.firebase-deploy.outputs.details_url }}
       urls: ${{ steps.firebase-deploy.outputs.urls }}
     steps:
-      - uses: GitHubSecurityLab/actions-permissions/monitor@v1
-
       - name: Checkout
         uses: actions/checkout@v4
 
