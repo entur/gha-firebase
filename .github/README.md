@@ -34,18 +34,11 @@ name: Build, preview and deploy
 on:
   pull_request:
 
-permissions:
-  checks: write
-  contents: read
-  pull-requests: write
-  id-token: write
-  issues: write
-
 on:
   pull_request:
 
 jobs:
-  # buildstep not included
+  # buildstep not included, can be defined in .firebase.json as a predeploy step or as a job here
 
   # Create a preview
   firebase-preview-dev:
@@ -60,7 +53,7 @@ jobs:
   firebase-approve:
     needs: firebase-preview-dev
     runs-on: ubuntu-latest
-    environment: Approval
+    environment: apr  # a dedicated "Approval" environment
     steps:
       - name: Approve deployment
         run: echo "Approving deployment"
@@ -74,3 +67,6 @@ jobs:
       build_artifact_name: artifacts
       build_artifact_path: build
 ```
+
+PS: To get a stop before we deploy to production we use "Environment protection rules":
+![Approval environment setting](approval_env.png)

@@ -35,7 +35,6 @@ on:
 jobs:
   deploy:
     permissions:
-      checks: write
       contents: read
       pull-requests: write
       id-token: write
@@ -46,29 +45,34 @@ jobs:
       details_url: ${{ steps.firebase-deploy.outputs.details_url }}
       urls: ${{ steps.firebase-deploy.outputs.urls }}
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - id: auth
+      - name: Authenticate with GCP
+        id: auth
         uses: "google-github-actions/auth@v2"
         with:
           workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ vars.SERVICE_ACCOUNT }}
           create_credentials_file: true
 
-      - run: |
-          echo "SERVICE_ACCOUNT_KEY=$(cat "${{ steps.auth.outputs.credentials_file_path }}" | tr -d '\n')" >> $GITHUB_ENV
+      - name: Set service account key
+        env:
+          SERVICE_ACCOUNT_KEY_PATH: ${{ steps.auth.outputs.credentials_file_path }}
+        run: |
+          echo "SERVICE_ACCOUNT_KEY=$(cat "${SERVICE_ACCOUNT_KEY_PATH}" | tr -d '\n')" >> $GITHUB_ENV
 
-      - id: download-artifact
+      - name: Download artifacts
+        id: download-artifact
         uses: actions/download-artifact@v4
         if: inputs.build_artifact_name != ''
         with:
           name: ${{ inputs.build_artifact_name }}
           path: ${{ inputs.build_artifact_path }}
 
-      - id: firebase-deploy
-        uses: FirebaseExtended/action-hosting-deploy@v0
+      - name: Firebase deploy
+        id: firebase-deploy
+        uses: FirebaseExtended/action-hosting-deploy@0cbcac4740c2bfb00d632f0b863b57713124eb5a # v0
         with:
           firebaseServiceAccount: "${{ env.SERVICE_ACCOUNT_KEY }}"
           projectId: ${{ inputs.gcp_project_id }}
