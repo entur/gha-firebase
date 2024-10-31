@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.0](https://github.com/entur/gha-firebase/compare/v1.0.0...v1.1.0) (2024-10-31)
+
+
+### Features
+
+* CodeQL implementation ([#21](https://github.com/entur/gha-firebase/issues/21)) ([a6c1c97](https://github.com/entur/gha-firebase/commit/a6c1c97373e1c000e8b3dcf7bea1fbc8ade69af0))
+* Display expire days on preview url ([#24](https://github.com/entur/gha-firebase/issues/24)) ([918376d](https://github.com/entur/gha-firebase/commit/918376d4af4f754cb1f99f89da17705237677f66))
+
+
+### Bug Fixes
+
+* add name, permission monitor and permisions: removal ([#17](https://github.com/entur/gha-firebase/issues/17)) ([83bc4af](https://github.com/entur/gha-firebase/commit/83bc4afb18a1538f945b1833fe5afb33346d6ce1))
+
 ## 1.0.0 (2024-09-02)
 
 
