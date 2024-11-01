@@ -78,6 +78,17 @@ jobs:
           name: ${{ inputs.build_artifact_name }}
           path: ${{ inputs.build_artifact_path }}
 
+      - name: Firebase deploy preview on Pull Request
+        id: firebase-deploy-preview-on-pr
+        uses: FirebaseExtended/action-hosting-deploy@0cbcac4740c2bfb00d632f0b863b57713124eb5a # v0
+        if: github.event_name != 'pull_request'
+        with:
+          firebaseServiceAccount: "${{ env.SERVICE_ACCOUNT_KEY }}"
+          projectId: ${{ inputs.gcp_project_id }}
+          entryPoint: ${{ inputs.entry_point }}
+          channelId: preview
+          expires: ${{ inputs.preview_expire }}
+
       - name: Firebase deploy preview
         id: firebase-deploy-preview
         uses: FirebaseExtended/action-hosting-deploy@0cbcac4740c2bfb00d632f0b863b57713124eb5a # v0
@@ -85,7 +96,6 @@ jobs:
           firebaseServiceAccount: "${{ env.SERVICE_ACCOUNT_KEY }}"
           projectId: ${{ inputs.gcp_project_id }}
           entryPoint: ${{ inputs.entry_point }}
-          channelId: preview
           expires: ${{ inputs.preview_expire }}
 
       - name: Add comment with preview url
