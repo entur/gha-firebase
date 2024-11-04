@@ -85,6 +85,7 @@ jobs:
           firebaseServiceAccount: "${{ env.SERVICE_ACCOUNT_KEY }}"
           projectId: ${{ inputs.gcp_project_id }}
           entryPoint: ${{ inputs.entry_point }}
+          channelId: preview
           expires: ${{ inputs.preview_expire }}
 
       - name: Add comment with preview url
