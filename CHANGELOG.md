@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/entur/gha-firebase/compare/v1.1.0...v1.1.1) (2024-11-04)
+
+
+### Bug Fixes
+
+* add channelId to fix issue with preview and docz ([#26](https://github.com/entur/gha-firebase/issues/26)) ([d32a009](https://github.com/entur/gha-firebase/commit/d32a009bb4937e0dd22407be2a8ef20100ae1334))
+
 ## [1.1.0](https://github.com/entur/gha-firebase/compare/v1.0.0...v1.1.0) (2024-10-31)
 
 
