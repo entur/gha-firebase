@@ -20,7 +20,7 @@ on:
     branches:
       - "main"
     paths-ignore:
-      - '**/README.md'
+      - "**/README*" # Ignore README files
   schedule:
     - cron: "0 3 * * 1-5" # Run Monday to Friday at 3AM UTC
 
