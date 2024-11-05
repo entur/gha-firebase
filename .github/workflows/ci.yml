@@ -3,6 +3,9 @@ on:
   pull_request:
 
 jobs:
+  verify-pr:
+    if: ${{ github.event_name == 'pull_request' }}
+    uses: entur/gha-meta/.github/workflows/verify-pr.yml@v1
   firebase-preview-dev:
     name: Firebase Hosting Preview
     uses: ./.github/workflows/firebase-hosting-preview.yml
