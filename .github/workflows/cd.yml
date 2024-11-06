@@ -7,12 +7,14 @@ on:
 jobs:
   # needed for status checks pr approvals
   update-firebase-hosting-deploy-doc:
+    name: Update Firebase Hosting Deploy Doc
     uses: entur/gha-meta/.github/workflows/auto-doc.yml@v1
     with:
       workflow_file: .github/workflows/firebase-hosting-deploy.yml
       readme_file: README-firebase-hosting-deploy.md
 
   update-firebase-hosting-preview-doc:
+    name: Update Firebase Hosting Preview Doc
     needs: [update-firebase-hosting-deploy-doc]
     uses: entur/gha-meta/.github/workflows/auto-doc.yml@v1
     with:
@@ -20,5 +22,6 @@ jobs:
       readme_file: README-firebase-hosting-preview.md
   # / needed for status checks pr approvals
   release:
+    name: Create Release
     needs: [update-firebase-hosting-preview-doc]
     uses: entur/gha-meta/.github/workflows/release.yml@v1
