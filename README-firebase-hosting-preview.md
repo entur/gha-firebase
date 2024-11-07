@@ -23,6 +23,7 @@ jobs:
 |-------------------------------------------------------------------------------------------|--------|----------|-----------|----------------------------------------------|
 | <a name="input_build_artifact_name"></a>[build_artifact_name](#input_build_artifact_name) | string |  false   |           | Name of GitHub artifact to <br>add to build  |
 | <a name="input_build_artifact_path"></a>[build_artifact_path](#input_build_artifact_path) | string |  false   | `"build"` |             Path to the artifact             |
+|              <a name="input_channel_id"></a>[channel_id](#input_channel_id)               | string |  false   |           |                  Channel ID                  |
 |             <a name="input_entry_point"></a>[entry_point](#input_entry_point)             | string |  false   |   `"."`   |         Entry point folder to deploy         |
 |             <a name="input_environment"></a>[environment](#input_environment)             | string |   true   |           |  Environment to deploy to (dev, tst, prd)    |
 |        <a name="input_gcp_project_id"></a>[gcp_project_id](#input_gcp_project_id)         | string |   true   |           |                GCP Project ID                |
