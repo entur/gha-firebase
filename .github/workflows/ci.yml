@@ -15,6 +15,7 @@ jobs:
       environment: dev
       entry_point: fixture
       preview_expire: 1d
+      channel_id: ""
   tests:
     name: Run tests
     needs: firebase-preview-dev

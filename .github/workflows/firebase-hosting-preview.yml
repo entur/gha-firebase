@@ -28,6 +28,10 @@ on:
         type: string
         description: "Preview expire time"
         default: "7d"
+      channel_id:
+          type: string
+          description: "Channel ID"
+          default: ""
       timeout_minutes:
         description: "Timeout in minutes"
         type: number
@@ -85,7 +89,7 @@ jobs:
           firebaseServiceAccount: "${{ env.SERVICE_ACCOUNT_KEY }}"
           projectId: ${{ inputs.gcp_project_id }}
           entryPoint: ${{ inputs.entry_point }}
-          channelId: preview
+          channelId: ${{ inputs.channel_id }}
           expires: ${{ inputs.preview_expire }}
 
       - name: Add comment with preview url
