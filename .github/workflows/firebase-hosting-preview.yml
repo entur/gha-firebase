@@ -79,10 +79,12 @@ jobs:
           path: ${{ inputs.build_artifact_path }}
 
       - name: Set CHANNEL_ID for preview deployment
+        env:
+           GCP_PROJECT_ID: ${{ inputs.gcp_project_id }}
+           REF: ${{ github.head_ref || github.ref_name }}
         run: |
 
-          CHANNEL_ID="preview-${{ github.event.number }}-${{ github.head_ref || github.ref_name }}"
-          GCP_PROJECT_ID="${{ inputs.gcp_project_id }}"
+          CHANNEL_ID="preview-${{ github.event.number }}-${REF}"
           FULL_LINK="${GCP_PROJECT_ID}-${CHANNEL_ID}"
           
           if [ ${#FULL_LINK} -gt 63 ]; then
