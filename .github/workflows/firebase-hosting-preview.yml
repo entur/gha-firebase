@@ -79,7 +79,7 @@ jobs:
           path: ${{ inputs.build_artifact_path }}
 
       - name: Set service account key
-        run: echo "CHANNEL_ID=$(preview-${{ github.event.number }}-${{ github.head_ref || github.ref_name }}" | cut -c1-63) >> $GITHUB_ENV
+        run: echo "CHANNEL_ID=$(preview-${{ github.event.number }}-${{ github.head_ref || github.ref_name }} | cut -c1-63)" >> $GITHUB_ENV
 
       - name: Firebase deploy preview
         id: firebase-deploy-preview
