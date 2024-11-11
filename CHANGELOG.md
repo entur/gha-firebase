@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/entur/gha-firebase/compare/v1.1.1...v1.1.2) (2024-11-11)
+
+
+### Bug Fixes
+
+* add custom channel ([#32](https://github.com/entur/gha-firebase/issues/32)) ([43df3e4](https://github.com/entur/gha-firebase/commit/43df3e41d076fddf9cbfafce8dddb4a3a4061bc7))
+
 ## [1.1.1](https://github.com/entur/gha-firebase/compare/v1.1.0...v1.1.1) (2024-11-04)
 
 
