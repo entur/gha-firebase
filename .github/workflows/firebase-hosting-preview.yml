@@ -78,8 +78,20 @@ jobs:
           name: ${{ inputs.build_artifact_name }}
           path: ${{ inputs.build_artifact_path }}
 
-      - name: Set service account key
-        run: echo "CHANNEL_ID=$(preview-${{ github.event.number }}-${{ github.head_ref || github.ref_name }} | cut -c1-63)" >> $GITHUB_ENV
+      - name: Set CHANNEL_ID for preview deployment
+        run: |
+
+          CHANNEL_ID="preview-${{ github.event.number }}-${{ github.head_ref || github.ref_name }}"
+          GCP_PROJECT_ID="${{ inputs.gcp_project_id }}"
+          FULL_LINK="${GCP_PROJECT_ID}-${CHANNEL_ID}"
+          
+          if [ ${#FULL_LINK} -gt 63 ]; then
+            MAX_CHANNEL_LENGTH=$((63 - ${#GCP_PROJECT_ID} - 1))
+            CHANNEL_ID="${CHANNEL_ID:0:MAX_CHANNEL_LENGTH}"
+          fi
+
+          echo "CHANNEL_ID=${CHANNEL_ID}" >> $GITHUB_ENV
+
 
       - name: Firebase deploy preview
         id: firebase-deploy-preview
