@@ -78,6 +78,9 @@ jobs:
           name: ${{ inputs.build_artifact_name }}
           path: ${{ inputs.build_artifact_path }}
 
+      - name: Set service account key
+        run: echo "CHANNEL_ID=$(preview-${{ github.event.number }}-${{ github.head_ref || github.ref_name }}" | cut -c1-63) >> $GITHUB_ENV
+
       - name: Firebase deploy preview
         id: firebase-deploy-preview
         uses: FirebaseExtended/action-hosting-deploy@0cbcac4740c2bfb00d632f0b863b57713124eb5a # v0
@@ -85,7 +88,7 @@ jobs:
           firebaseServiceAccount: "${{ env.SERVICE_ACCOUNT_KEY }}"
           projectId: ${{ inputs.gcp_project_id }}
           entryPoint: ${{ inputs.entry_point }}
-          channelId: "${{ (format('preview-{0}-{1}-{2}', github.event.number, github.event.pull_request.head.ref, github.head_ref || github.ref_name)[:63]) }}"
+          channelId: ${{ env.CHANNEL_ID }}
           expires: ${{ inputs.preview_expire }}
 
       - name: Add comment with preview url
