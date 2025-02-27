@@ -5,27 +5,33 @@ registries:
     url: "https://entur2.jfrog.io/entur2"
     token: ${{secrets.ARTIFACTORY_AUTH_TOKEN}}
 updates:
-  - package-ecosystem: github-actions
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    groups:
-      minor-and-patch:
-        applies-to: version-updates
-        update-types:
+- package-ecosystem: github-actions
+  directory: "/"
+  groups:
+    minor-and-patch:
+      applies-to: version-updates
+      update-types:
         - "minor"
         - "patch"
-  - package-ecosystem: "npm"
-    directory: "/fixture/functions"
-    registries:
-      - jfrog-artifactory
-    groups:
-      minor-and-patch:
-        applies-to: version-updates
-        update-types:
-        - "minor"
-        - "patch"
-    schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 2
-
+  schedule:
+    interval: "weekly"
+    time: "09:00"
+    timezone: "Europe/Oslo"
+    day: "monday"
+  open-pull-requests-limit: 2
+- package-ecosystem: "npm"
+  directory: "/fixture/functions"
+  registries:
+    - jfrog-artifactory
+  groups:
+    minor-and-patch:
+      applies-to: version-updates
+      update-types:
+      - "minor"
+      - "patch"
+  schedule:
+    interval: "weekly"
+    time: "09:00"
+    timezone: "Europe/Oslo"
+    day: "monday"
+  open-pull-requests-limit: 2
