@@ -1,0 +1,8 @@
+apiVersion: orchestrator.entur.io/github/v1
+kind: GitHubManifest
+metadata:
+  id: gha-firebase
+  trigger: 1755515104
+spec:
+  environments:
+  - dev
