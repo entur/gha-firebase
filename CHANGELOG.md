@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.3](https://github.com/entur/gha-firebase/compare/v1.1.2...v1.1.3) (2025-10-20)
+
+
+### Bug Fixes
+
+* dependabot release when non development changes ([#58](https://github.com/entur/gha-firebase/issues/58)) ([23ef886](https://github.com/entur/gha-firebase/commit/23ef886b77470a99224944c020672dfa9b42edd3))
+
 ## [1.1.2](https://github.com/entur/gha-firebase/compare/v1.1.1...v1.1.2) (2024-11-11)
 
 
