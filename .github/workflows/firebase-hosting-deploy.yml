@@ -81,7 +81,7 @@ jobs:
 
       - name: Add comment with the web url
         if: github.event_name == 'pull_request'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         env:
           MESSAGE_BODY: "The firebase hosting site in ${{ inputs.environment }} is deployed to the live channel" # pending bugfix: is available at ${{ steps.firebase-deploy.outputs.details_url }}"
           ALL_URLS: ${{ steps.firebase-deploy.outputs.urls }}

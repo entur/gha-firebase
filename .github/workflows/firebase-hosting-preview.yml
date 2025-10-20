@@ -107,7 +107,7 @@ jobs:
 
       - name: Add comment with preview url
         if: github.event_name == 'pull_request'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         env:
           MESSAGE_BODY: "Preview for this PR in ${{ inputs.environment }} is available at ${{ steps.firebase-deploy-preview.outputs.details_url }} (Expires in ${{ inputs.preview_expire }})"
         with:
