@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.4](https://github.com/entur/gha-firebase/compare/v1.1.3...v1.1.4) (2025-10-20)
+
+
+### Bug Fixes
+
+* **deps:** bump google-github-actions/auth from 2 to 3 ([#59](https://github.com/entur/gha-firebase/issues/59)) ([2d3d16b](https://github.com/entur/gha-firebase/commit/2d3d16be7fe74f2335cbeb745027718a1e1a93bf))
+
 ## [1.1.3](https://github.com/entur/gha-firebase/compare/v1.1.2...v1.1.3) (2025-10-20)
 
 
