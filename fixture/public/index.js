@@ -3,7 +3,7 @@
   This is just a stupid test fixture for gha-firebase
 */
 const firebaseConfig = {
-  apiKey: "AIzaSyCqPLSzP2FeATrS5DammO7qyqtQxb3frF8",
+  apiKey: process.env.FIREBASE_API_KEY, // Use environment-specific APIKEYs
   authDomain: "ent-ghafb-dev.firebaseapp.com",
   projectId: "ent-ghafb-dev",
   storageBucket: "ent-ghafb-dev.appspot.com",

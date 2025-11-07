@@ -27,6 +27,8 @@ jobs:
           curl --fail --silent --show-error --connect-timeout 10 -I ${PREVIEW_URL}
   firebase-deploy-dev:
     name: Firebase Hosting Deploy
+    env:
+      FIREBASE_API_KEY_DEV: ${{ secrets.FIREBASE_API_KEY }}
     needs: tests
     uses: ./.github/workflows/firebase-hosting-deploy.yml
     with:
