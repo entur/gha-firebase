@@ -64,7 +64,7 @@ jobs:
 
       - name: Download artifacts
         id: download-artifact
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         if: inputs.build_artifact_name != ''
         with:
           name: ${{ inputs.build_artifact_name }}
