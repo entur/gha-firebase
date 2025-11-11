@@ -2,6 +2,8 @@
   Don't copy what we're doing here - this is just a test fixture
   This is just a stupid test fixture for gha-firebase
 */
+
+// Note that the APIkey in the firebaseConfig of firebase frontend applications is not sensitive data https://firebase.google.com/docs/projects/api-keys
 const firebaseConfig = {
   apiKey: "AIzaSyCqPLSzP2FeATrS5DammO7qyqtQxb3frF8",
   authDomain: "ent-ghafb-dev.firebaseapp.com",
