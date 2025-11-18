@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.5](https://github.com/entur/gha-firebase/compare/v1.1.4...v1.1.5) (2025-11-18)
+
+
+### Bug Fixes
+
+* **deps:** bump actions/download-artifact from 5 to 6 ([#64](https://github.com/entur/gha-firebase/issues/64)) ([7170210](https://github.com/entur/gha-firebase/commit/71702109adbc510c8a8df5c38a827938de506ce5))
+
 ## [1.1.4](https://github.com/entur/gha-firebase/compare/v1.1.3...v1.1.4) (2025-10-20)
 
 
