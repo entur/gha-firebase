@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.6](https://github.com/entur/gha-firebase/compare/v1.1.5...v1.1.6) (2025-11-27)
+
+
+### Bug Fixes
+* **deps:** bump firebase-functions from 6.6.0 to 7.0.0
+* **deps:** bump actions/checkout from 5 to 6 ([#72](https://github.com/entur/gha-firebase/issues/72)) ([8bfcf53](https://github.com/entur/gha-firebase/commit/8bfcf5381ebe6152d1356ca44b481bbf56a24b4e))
+
 ## [1.1.5](https://github.com/entur/gha-firebase/compare/v1.1.4...v1.1.5) (2025-11-18)
 
 
