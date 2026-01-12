@@ -52,13 +52,13 @@ jobs:
       urls: ${{ steps.firebase-deploy-preview.outputs.urls }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.2
         with:
           fetch-depth: 0
 
       - name: Authenticate with GCP
         id: auth
-        uses: "google-github-actions/auth@v3"
+        uses: "google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093" # v3.0.0
         with:
           workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ vars.SERVICE_ACCOUNT }}
@@ -72,7 +72,7 @@ jobs:
 
       - name: Download artifacts
         id: download-artifact
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
         if: inputs.build_artifact_name != ''
         with:
           name: ${{ inputs.build_artifact_name }}
@@ -80,13 +80,13 @@ jobs:
 
       - name: Set CHANNEL_ID for preview deployment
         env:
-           GCP_PROJECT_ID: ${{ inputs.gcp_project_id }}
-           REF: ${{ github.head_ref || github.ref_name }}
+          GCP_PROJECT_ID: ${{ inputs.gcp_project_id }}
+          REF: ${{ github.head_ref || github.ref_name }}
         run: |
 
           CHANNEL_ID="preview-${{ github.event.number }}-${REF}"
           FULL_LINK="${GCP_PROJECT_ID}-${CHANNEL_ID}"
-          
+
           if [ ${#FULL_LINK} -gt 63 ]; then
             MAX_CHANNEL_LENGTH=$((63 - ${#GCP_PROJECT_ID} - 1))
             CHANNEL_ID="${CHANNEL_ID:0:MAX_CHANNEL_LENGTH}"
@@ -94,10 +94,9 @@ jobs:
 
           echo "CHANNEL_ID=${CHANNEL_ID}" >> $GITHUB_ENV
 
-
       - name: Firebase deploy preview
         id: firebase-deploy-preview
-        uses: FirebaseExtended/action-hosting-deploy@e2eda2e106cfa35cdbcf4ac9ddaf6c4756df2c8c # v0
+        uses: FirebaseExtended/action-hosting-deploy@e2eda2e106cfa35cdbcf4ac9ddaf6c4756df2c8c # v0.10.0
         with:
           firebaseServiceAccount: "${{ env.SERVICE_ACCOUNT_KEY }}"
           projectId: ${{ inputs.gcp_project_id }}
@@ -107,7 +106,7 @@ jobs:
 
       - name: Add comment with preview url
         if: github.event_name == 'pull_request'
-        uses: actions/github-script@v8
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
           MESSAGE_BODY: "Preview for this PR in ${{ inputs.environment }} is available at ${{ steps.firebase-deploy-preview.outputs.details_url }} (Expires in ${{ inputs.preview_expire }})"
         with:
