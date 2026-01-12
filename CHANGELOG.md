@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.7](https://github.com/entur/gha-firebase/compare/v1.1.6...v1.1.7) (2026-01-12)
+
+
+### Bug Fixes
+
+* **deps:** bump actions/download-artifact from 6 to 7 ([#78](https://github.com/entur/gha-firebase/issues/78)) ([dbb153d](https://github.com/entur/gha-firebase/commit/dbb153d34464945a9b50e4405ae948553ddf8e63))
+* pin versions for external components ([#82](https://github.com/entur/gha-firebase/issues/82)) ([4023cd6](https://github.com/entur/gha-firebase/commit/4023cd603cf39ae9819789684f73110860ee49c4))
+
 ## [1.1.6](https://github.com/entur/gha-firebase/compare/v1.1.5...v1.1.6) (2025-11-27)
 
 
