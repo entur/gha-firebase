@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.8](https://github.com/entur/gha-firebase/compare/v1.1.7...v1.1.8) (2026-01-22)
+
+
+### Bug Fixes
+
+* bump firebase-functions from 7.0.1 to 7.0.3 in /fixture/functions in the minor-and-patch group ([#83](https://github.com/entur/gha-firebase/issues/83)) ([6299abb](https://github.com/entur/gha-firebase/commit/6299abb5c19f324e87ece61e93d1a31a3ac70a9e))
+* codeql and release-please permissions update ([#84](https://github.com/entur/gha-firebase/issues/84)) ([7bed7fb](https://github.com/entur/gha-firebase/commit/7bed7fb6ee4ffd98569dfd212206343d14fc1244))
+
 ## [1.1.7](https://github.com/entur/gha-firebase/compare/v1.1.6...v1.1.7) (2026-01-12)
 
 
