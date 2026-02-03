@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.9](https://github.com/entur/gha-firebase/compare/v1.1.8...v1.1.9) (2026-02-03)
+
+
+### Bug Fixes
+
+* bump firebase-functions from 7.0.3 to 7.0.5 in /fixture/functions in the minor-and-patch group ([#88](https://github.com/entur/gha-firebase/issues/88)) ([9f17eb0](https://github.com/entur/gha-firebase/commit/9f17eb09560e251462b85c812c3cb6789b109b07))
+* **deps:** bump actions/checkout from 6.0.1 to 6.0.2 in the minor-and-patch group ([#87](https://github.com/entur/gha-firebase/issues/87)) ([8075f98](https://github.com/entur/gha-firebase/commit/8075f98c0edc6a6599bb4d4a1a2fdac60234a5b8))
+* **deps:** bump actions/checkout in the minor-and-patch group ([8075f98](https://github.com/entur/gha-firebase/commit/8075f98c0edc6a6599bb4d4a1a2fdac60234a5b8))
+
 ## [1.1.8](https://github.com/entur/gha-firebase/compare/v1.1.7...v1.1.8) (2026-01-22)
 
 
