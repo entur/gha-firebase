@@ -108,13 +108,57 @@ jobs:
         if: github.event_name == 'pull_request'
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         env:
-          MESSAGE_BODY: "Preview for this PR in ${{ inputs.environment }} is available at ${{ steps.firebase-deploy-preview.outputs.details_url }} (Expires in ${{ inputs.preview_expire }})"
+          ENVIRONMENT: ${{ inputs.environment }}
+          DETAILS_URL: ${{ steps.firebase-deploy-preview.outputs.details_url }}
+          EXPIRES_FORMATTED: ${{ steps.firebase-deploy-preview.outputs.expire_time_formatted }}
+          PREVIEW_EXPIRE: ${{ inputs.preview_expire }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            await github.rest.issues.createComment({
-              issue_number: context.issue.number,
+            const marker = '<!-- firebase-hosting-preview -->';
+            const shortSha = context.sha.slice(0, 7);
+            const env = process.env.ENVIRONMENT;
+            const detailsUrl = process.env.DETAILS_URL;
+            const expiresFormatted = process.env.EXPIRES_FORMATTED;
+            const previewExpire = process.env.PREVIEW_EXPIRE;
+
+            const header = `Preview for this PR in \`${env}\` (updated for commit ${shortSha}):`;
+            const urlLine = detailsUrl || 'Preview URL unavailable';
+
+            let expiresLine = '';
+            if (expiresFormatted) {
+              expiresLine = `(Expires ${expiresFormatted})`;
+            } else if (previewExpire) {
+              expiresLine = `(Expires in ${previewExpire})`;
+            }
+
+            const body = `${header}\n\n${urlLine}\n${expiresLine}\n${marker}`;
+
+            const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: process.env.MESSAGE_BODY
+              issue_number: context.issue.number,
             });
+
+            const existing = comments.find(
+              (comment) =>
+                comment.user?.type === 'Bot' &&
+                comment.body &&
+                comment.body.includes(marker),
+            );
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
