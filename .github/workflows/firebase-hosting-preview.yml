@@ -17,6 +17,9 @@ on:
         type: string
         description: "Entry point folder to deploy"
         default: "."
+      target:
+        type: string
+        description: "Optional Firebase Hosting target name to deploy"
       build_artifact_name:
         description: "Name of GitHub artifact to add to build"
         type: string
@@ -101,6 +104,7 @@ jobs:
           firebaseServiceAccount: "${{ env.SERVICE_ACCOUNT_KEY }}"
           projectId: ${{ inputs.gcp_project_id }}
           entryPoint: ${{ inputs.entry_point }}
+          target: ${{ inputs.target }}
           channelId: ${{ env.CHANNEL_ID }}
           expires: ${{ inputs.preview_expire }}
 
