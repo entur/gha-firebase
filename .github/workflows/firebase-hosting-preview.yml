@@ -116,37 +116,44 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const marker = '<!-- firebase-hosting-preview -->';
-            const shortSha = context.sha.slice(0, 7);
+      
+            // For pull_request events, use the PR head SHA (not context.sha which can be a merge SHA)
+            const pr = context.payload.pull_request;
+            const headSha = pr?.head?.sha ?? context.sha;
+            const shortSha = headSha.slice(0, 7);
+      
             const env = process.env.ENVIRONMENT;
             const detailsUrl = process.env.DETAILS_URL;
             const expiresFormatted = process.env.EXPIRES_FORMATTED;
             const previewExpire = process.env.PREVIEW_EXPIRE;
-
+      
             const header = `Preview for this PR in \`${env}\` (updated for commit ${shortSha}):`;
             const urlLine = detailsUrl || 'Preview URL unavailable';
-
+      
             let expiresLine = '';
             if (expiresFormatted) {
               expiresLine = `(Expires ${expiresFormatted})`;
             } else if (previewExpire) {
               expiresLine = `(Expires in ${previewExpire})`;
             }
-
+      
             const body = `${header}\n\n${urlLine}\n${expiresLine}\n${marker}`;
-
-            const { data: comments } = await github.rest.issues.listComments({
+      
+            // Comments can paginate; use the built-in paginator
+            const comments = await github.paginate(github.rest.issues.listComments, {
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
+              per_page: 100,
             });
-
-            const existing = comments.find(
-              (comment) =>
-                comment.user?.type === 'Bot' &&
-                comment.body &&
-                comment.body.includes(marker),
+      
+            // Find *our* comment. Prefer matching marker; optionally also ensure it's from github-actions[bot].
+            const existing = comments.find((comment) =>
+              typeof comment.body === 'string' &&
+              comment.body.includes(marker) &&
+              (comment.user?.login === 'github-actions[bot]' || comment.user?.type === 'Bot')
             );
-
+      
             if (existing) {
               await github.rest.issues.updateComment({
                 owner: context.repo.owner,
