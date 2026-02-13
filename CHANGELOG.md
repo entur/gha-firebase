@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.0](https://github.com/entur/gha-firebase/compare/v1.1.9...v1.2.0) (2026-02-13)
+
+
+### Features
+
+* **firebase-hosting-preview:** update existing preview link comment instead of adding new comment ([#93](https://github.com/entur/gha-firebase/issues/93)) ([17851da](https://github.com/entur/gha-firebase/commit/17851dae62adb8a462743c3d86e5cd21d5d9ebdd))
+* **firebase-hosting:** add support for `target` option in deploy workflows ([#92](https://github.com/entur/gha-firebase/issues/92)) ([c57bd84](https://github.com/entur/gha-firebase/commit/c57bd840049810f73a7763f5ec7a14fcb3a220f9))
+
 ## [1.1.9](https://github.com/entur/gha-firebase/compare/v1.1.8...v1.1.9) (2026-02-03)
 
 
