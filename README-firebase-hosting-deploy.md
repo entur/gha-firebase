@@ -26,7 +26,6 @@ jobs:
 |             <a name="input_entry_point"></a>[entry_point](#input_entry_point)             | string |  false   |   `"."`   | Entry point folder to deploy <br>(Same folder as .firebase.json is located)  |
 |             <a name="input_environment"></a>[environment](#input_environment)             | string |   true   |           |                  Environment to deploy to (dev, tst, prd)                    |
 |        <a name="input_gcp_project_id"></a>[gcp_project_id](#input_gcp_project_id)         | string |   true   |           |                                GCP Project ID                                |
-|                    <a name="input_target"></a>[target](#input_target)                     | string |  false   |           |             Optional Firebase Hosting target name <br>to deploy              |
 |       <a name="input_timeout_minutes"></a>[timeout_minutes](#input_timeout_minutes)       | number |  false   |   `20`    |                              Timeout in minutes                              |
 
 <!-- AUTO-DOC-INPUT:END -->
