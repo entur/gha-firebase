@@ -117,7 +117,6 @@ jobs:
           script: |
             const marker = '<!-- firebase-hosting-preview -->';
       
-            // For pull_request events, use the PR head SHA (not context.sha which can be a merge SHA)
             const pr = context.payload.pull_request;
             const headSha = pr?.head?.sha ?? context.sha;
             const shortSha = headSha.slice(0, 7);
@@ -147,7 +146,7 @@ jobs:
               per_page: 100,
             });
       
-            // Find *our* comment. Prefer matching marker; optionally also ensure it's from github-actions[bot].
+            // Find the existing comment if it exists
             const existing = comments.find((comment) =>
               typeof comment.body === 'string' &&
               comment.body.includes(marker) &&
