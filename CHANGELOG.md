@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.2.0](https://github.com/entur/gha-firebase/compare/v1.1.9...v1.2.0) (2026-02-16)
+
+
+### Features
+
+* **firebase-hosting-preview:** update existing preview link comment instead of adding new comment ([#93](https://github.com/entur/gha-firebase/issues/93)) ([17851da](https://github.com/entur/gha-firebase/commit/17851dae62adb8a462743c3d86e5cd21d5d9ebdd))
+* **firebase-hosting:** add support for `target` option in deploy workflows ([#92](https://github.com/entur/gha-firebase/issues/92)) ([c57bd84](https://github.com/entur/gha-firebase/commit/c57bd840049810f73a7763f5ec7a14fcb3a220f9))
+
+
+### Bug Fixes
+
+* **deps-dev:** bump eslint from 9.39.2 to 10.0.0 in /fixture/functions ([#91](https://github.com/entur/gha-firebase/issues/91)) ([588ead0](https://github.com/entur/gha-firebase/commit/588ead0bbd0510829cd9dc5133d215ce66d9d118))
+* **deps:** bump firebase-admin from 13.6.0 to 13.6.1 in /fixture/functions in the minor-and-patch group ([#90](https://github.com/entur/gha-firebase/issues/90)) ([07694a1](https://github.com/entur/gha-firebase/commit/07694a1745b39fe9fd243dee5dac46b7bceb0a04))
+* **deps:** bump qs from 6.14.1 to 6.14.2 in /fixture/functions ([#94](https://github.com/entur/gha-firebase/issues/94)) ([1110a52](https://github.com/entur/gha-firebase/commit/1110a529466dea44dc7a4e201ae739219ca85765))
+
 ## [1.1.9](https://github.com/entur/gha-firebase/compare/v1.1.8...v1.1.9) (2026-02-03)
 
 
