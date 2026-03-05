@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/entur/gha-firebase/compare/v1.2.0...v1.2.1) (2026-03-02)
+
+
+### Bug Fixes
+
+* **deps:** bump actions/download-artifact from 7.0.0 to 8.0.0 ([#101](https://github.com/entur/gha-firebase/issues/101)) ([1339938](https://github.com/entur/gha-firebase/commit/1339938ef2be4facdb6a18837f50abdb7b307e67))
+
 ## [1.2.0](https://github.com/entur/gha-firebase/compare/v1.1.9...v1.2.0) (2026-02-16)
 
 
