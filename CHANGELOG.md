@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.2.2](https://github.com/entur/gha-firebase/compare/v1.2.1...v1.2.2) (2026-04-13)
+
+
+### Bug Fixes
+
+* **deps-dev:** bump lodash from 4.17.23 to 4.18.1 in /fixture/functions ([#115](https://github.com/entur/gha-firebase/issues/115)) ([add0c92](https://github.com/entur/gha-firebase/commit/add0c9293ad2a3e561306baf7d796b282c86a9f3))
+* **deps:** bump actions/download-artifact from 8.0.0 to 8.0.1 in the minor-and-patch group ([#105](https://github.com/entur/gha-firebase/issues/105)) ([b1e2b30](https://github.com/entur/gha-firebase/commit/b1e2b30629e346761e5132719d6122ddb3b37360))
+* **deps:** bump actions/download-artifact in the minor-and-patch group ([b1e2b30](https://github.com/entur/gha-firebase/commit/b1e2b30629e346761e5132719d6122ddb3b37360))
+* **deps:** bump the minor-and-patch group across 1 directory with 3 updates ([#116](https://github.com/entur/gha-firebase/issues/116)) ([ceada50](https://github.com/entur/gha-firebase/commit/ceada5015cbc0e00a471c3210a2566ad1c11d56d))
+
 ## [1.2.1](https://github.com/entur/gha-firebase/compare/v1.2.0...v1.2.1) (2026-03-02)
 
 
