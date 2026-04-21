@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.3](https://github.com/entur/gha-firebase/compare/v1.2.2...v1.2.3) (2026-04-21)
+
+
+### Bug Fixes
+
+* **deps:** bump actions/github-script from 8.0.0 to 9.0.0 ([#122](https://github.com/entur/gha-firebase/issues/122)) ([9a3bdf4](https://github.com/entur/gha-firebase/commit/9a3bdf403ba69ea40b460b13abd1a534ae0c5d0f))
+
 ## [1.2.2](https://github.com/entur/gha-firebase/compare/v1.2.1...v1.2.2) (2026-04-13)
 
 
