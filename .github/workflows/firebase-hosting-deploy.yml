@@ -15,6 +15,10 @@ on:
         type: string
         description: "Entry point folder to deploy (Same folder as .firebase.json is located)"
         default: "."
+      tools_version:
+        type: string
+        description: "Optional Firebase-tools version to use when deploying"
+        default: "15.18.0"
       target:
         type: string
         description: "Optional Firebase Hosting target name to deploy"
@@ -76,10 +80,14 @@ jobs:
       - name: Firebase deploy
         id: firebase-deploy
         uses: FirebaseExtended/action-hosting-deploy@e2eda2e106cfa35cdbcf4ac9ddaf6c4756df2c8c # v0.10.0
+        env:
+          NPM_CONFIG_IGNORE_SCRIPTS: true
+          NPM_CONFIG_MIN_RELEASE_AGE: 4
         with:
           firebaseServiceAccount: "${{ env.SERVICE_ACCOUNT_KEY }}"
           projectId: ${{ inputs.gcp_project_id }}
           entryPoint: ${{ inputs.entry_point }}
+          firebaseToolsVersion: ${{ inputs.tools_version }}
           target: ${{ inputs.target }}
           channelId: live
 
