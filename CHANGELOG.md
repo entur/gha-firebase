@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.2.5](https://github.com/entur/gha-firebase/compare/v1.2.4...v1.2.5) (2026-05-20)
+
+
+### Bug Fixes
+
+* Update workflows to use a newer version of npm which supports ag… ([#133](https://github.com/entur/gha-firebase/issues/133)) ([2b7c216](https://github.com/entur/gha-firebase/commit/2b7c2167217a815f4c23dd35ef4536999e19d156))
+* Update workflows to use a newer version of npm which supports age gates ([2b7c216](https://github.com/entur/gha-firebase/commit/2b7c2167217a815f4c23dd35ef4536999e19d156))
+
+## [1.2.4](https://github.com/entur/gha-firebase/compare/v1.2.3...v1.2.4) (2026-05-19)
+
+
+### Bug Fixes
+
+* Harden deploy/preview workflows against supply chain attacks ([#131](https://github.com/entur/gha-firebase/issues/131)) ([d0a2192](https://github.com/entur/gha-firebase/commit/d0a219229e5268a6722f8194d831a7eba492aca4))
+
 ## [1.2.3](https://github.com/entur/gha-firebase/compare/v1.2.2...v1.2.3) (2026-05-04)
 
 
