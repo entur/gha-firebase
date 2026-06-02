@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.6](https://github.com/entur/gha-firebase/compare/v1.2.5...v1.2.6) (2026-06-02)
+
+
+### Bug Fixes
+
+* codeql execution issue ([#137](https://github.com/entur/gha-firebase/issues/137)) ([22690a4](https://github.com/entur/gha-firebase/commit/22690a415d1f300ed4e3ea6dfb580ffacfbb5304))
+
 ## [1.2.5](https://github.com/entur/gha-firebase/compare/v1.2.4...v1.2.5) (2026-05-20)
 
 
