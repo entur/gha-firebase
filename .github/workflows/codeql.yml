@@ -30,6 +30,7 @@ permissions:
   pull-requests: write # upload events
   security-events: write # dependency graph and code scanning alerts
   issues: write # upload events
+  packages: read # required by nested jobs in code-scan.yml
 
 jobs:
   code-scan:
