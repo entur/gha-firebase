@@ -49,8 +49,7 @@ jobs:
     timeout-minutes: ${{ inputs.timeout_minutes }}
     environment: ${{ inputs.environment }}
     env:
-      # Force JS actions (e.g. FirebaseExtended/action-hosting-deploy, which ships
-      # as a Node 20 action) onto Node 24 to silence the deprecation warning.
+      # Force JS actions onto Node 24 to silence the deprecation warning.
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     outputs:
       details_url: ${{ steps.firebase-deploy.outputs.details_url }}
