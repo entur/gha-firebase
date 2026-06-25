@@ -18,7 +18,7 @@ on:
       tools_version:
         type: string
         description: "Optional Firebase-tools version to use when deploying"
-        default: "15.18.0"
+        default: "15.22.2"
       target:
         type: string
         description: "Optional Firebase Hosting target name to deploy"
@@ -84,7 +84,7 @@ jobs:
 
       - name: Firebase deploy
         id: firebase-deploy
-        uses: FirebaseExtended/action-hosting-deploy@e2eda2e106cfa35cdbcf4ac9ddaf6c4756df2c8c # v0.10.0
+        uses: FirebaseExtended/action-hosting-deploy@500ac625ca2dd40cbd15f7659af953801858032a # v0.10.0 + node24 runtime (PR #450)
         env:
           NPM_CONFIG_IGNORE_SCRIPTS: true
           NPM_CONFIG_MIN_RELEASE_AGE: 4
