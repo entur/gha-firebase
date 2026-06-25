@@ -75,6 +75,11 @@ jobs:
           workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ vars.SERVICE_ACCOUNT }}
           create_credentials_file: true
+          token_format: access_token
+          access_token_scopes: |
+            https://www.googleapis.com/auth/cloud-platform,
+            https://www.googleapis.com/auth/firebase,
+            https://www.googleapis.com/auth/cloudplatformprojects.readonly
 
       - name: Set service account key
         env:
@@ -110,6 +115,7 @@ jobs:
         id: firebase-deploy-preview
         uses: FirebaseExtended/action-hosting-deploy@500ac625ca2dd40cbd15f7659af953801858032a # v0.10.0 + node24 runtime (PR #450)
         env:
+          FIREBASE_TOKEN: ${{ steps.auth.outputs.access_token }}
           NPM_CONFIG_IGNORE_SCRIPTS: true
           NPM_CONFIG_MIN_RELEASE_AGE: 4
         with:
