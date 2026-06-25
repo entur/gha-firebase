@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.7](https://github.com/entur/gha-firebase/compare/v1.2.6...v1.2.7) (2026-06-25)
+
+
+### Bug Fixes
+
+* bump to node24 ([#145](https://github.com/entur/gha-firebase/issues/145)) ([6999f5b](https://github.com/entur/gha-firebase/commit/6999f5b73ec249be4bb08e61c70959b0fdaea6bb))
+
 ## [1.2.6](https://github.com/entur/gha-firebase/compare/v1.2.5...v1.2.6) (2026-06-02)
 
 
