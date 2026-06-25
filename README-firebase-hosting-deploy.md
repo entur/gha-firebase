@@ -6,7 +6,11 @@ Add the following step to your workflow configuration:
 
 ```yml
 jobs:
-  firebase-preview-dev:
+  firebase-deploy-dev:
+    permissions:
+      contents: read
+      pull-requests: write
+      id-token: write  # required for Workload Identity Federation
     uses: entur/gha-firebase/.github/workflows/firebase-hosting-deploy.yml@v1
     with:
       gcp_project_id: my-gcp-project-dev
