@@ -28,5 +28,5 @@
 - [ ] Docs are updated where auto-doc doesn't reach
 - [ ] Tests are added/updated if relevant
 - [ ] Fixture app (fixture/) exercises the new behaviour, if applicable.
-- [ ] Actions are pinned to a commit SHA, and workflow permissions are kept minimal
+- [ ] Third-party actions are pinned to a commit SHA, and workflow permissions are kept minimal
 - [ ] No secrets, project IDs or other sensitive values are hardcoded
