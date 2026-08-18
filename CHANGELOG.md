@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.8](https://github.com/entur/gha-firebase/compare/v1.2.7...v1.2.8) (2026-08-14)
+
+
+### Bug Fixes
+
+* **deps:** bump dependabot dep's ([#150](https://github.com/entur/gha-firebase/issues/150)) ([631a0b7](https://github.com/entur/gha-firebase/commit/631a0b7f1480316236045ec8500586f10f4e258c))
+
 ## [1.2.7](https://github.com/entur/gha-firebase/compare/v1.2.6...v1.2.7) (2026-06-25)
 
 
