@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.9](https://github.com/entur/gha-firebase/compare/v1.2.8...v1.2.9) (2026-08-20)
+
+
+### Bug Fixes
+
+* **deps:** bump actions/checkout from 6.0.2 to 7.0.1 ([#152](https://github.com/entur/gha-firebase/issues/152)) ([d4aa263](https://github.com/entur/gha-firebase/commit/d4aa2639b28899a4eb82b55eb0a243c93fe820a7))
+
 ## [1.2.8](https://github.com/entur/gha-firebase/compare/v1.2.7...v1.2.8) (2026-08-14)
 
 
