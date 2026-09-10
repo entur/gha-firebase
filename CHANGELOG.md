@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.10](https://github.com/entur/gha-firebase/compare/v1.2.9...v1.2.10) (2026-09-10)
+
+
+### Bug Fixes
+
+* **deps:** npm audit fix on firebase test fixture (clears 1 critical, 4 high, 2 low, 3 moderate) ([9204e3a](https://github.com/entur/gha-firebase/commit/9204e3a85f531131cf492048881afa416acc23b4))
+* **deps:** resolve open Dependabot security alerts ([#154](https://github.com/entur/gha-firebase/issues/154)) ([9204e3a](https://github.com/entur/gha-firebase/commit/9204e3a85f531131cf492048881afa416acc23b4))
+
 ## [1.2.9](https://github.com/entur/gha-firebase/compare/v1.2.8...v1.2.9) (2026-08-20)
 
 
