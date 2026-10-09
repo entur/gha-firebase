@@ -17,6 +17,15 @@ on:
         type: string
         description: "Entry point folder to deploy"
         default: "."
+      node-version:
+        type: string
+        description: "Node version to use"
+      node-version-file:
+        type: string
+        description: "Where to read node version from"
+      package-manager:
+        type: string
+        description: "Which node package manager the project uses. npm/yarn/pnpm"
       tools_version:
         type: string
         description: "Optional Firebase-tools version to use when deploying"
@@ -66,7 +75,48 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version: 24.18.0
+          node-version: |-
+            ${{ case(
+              inputs.node-version != '', inputs.node_version,
+              inputs.node-version-file != '', '',
+              '24.18.0'
+            )}}
+          node-version-file: ${{ inputs.node-version-file }}
+          cache: ${{ inputs.package-manager }}
+      
+      - name: Install packages
+        if: ${{ inputs.package-manager != '' }}
+        run: |-
+          ${{ case(
+            inputs.package-manager == 'yarn', 'yarn install --immutable',
+            inputs.package-manager == 'npm', 'npm ci',
+            inputs.package-manager == 'pnpm', 'pnpm install',
+            'exit'
+          )}}
+      - name: Find firebase-tools version
+        id: find-firebase-tools-version
+        env:
+          GHA_FIREBASE_TOOLS_VERSION: ${{inputs.tools_version}}
+          GHA_FIREBASE_PACKAGE_MANAGER: ${{inputs.package-manager}}
+        shell: bash
+        run: |
+          version=$GHA_FIREBASE_TOOLS_VERSION
+          
+          case "$GHA_FIREBASE_PACKAGE_MANAGER" in
+            "yarn")
+              version=$(yarn info firebase-tools --json | jq -r ".children.Version")
+              ;;
+            "npm")
+              version=$(npm info firebase-tools version)
+              ;;
+            "pnpm")
+              version=$(pnpm info firebase-tools version)
+              ;;
+          esac
+          
+          echo "Found firebase-tools version: $version"
+          
+          echo "firebase-tools-version=$version" >> "$GITHUB_OUTPUT"
 
       - name: Authenticate with GCP
         id: auth
@@ -116,7 +166,7 @@ jobs:
           firebaseServiceAccount: "${{ env.SERVICE_ACCOUNT_KEY }}"
           projectId: ${{ inputs.gcp_project_id }}
           entryPoint: ${{ inputs.entry_point }}
-          firebaseToolsVersion: ${{ inputs.tools_version }}
+          firebaseToolsVersion: ${{ steps.find-firebase-tools-version.outputs.firebase-tools-version }}
           target: ${{ inputs.target }}
           channelId: ${{ env.CHANNEL_ID }}
           expires: ${{ inputs.preview_expire }}
