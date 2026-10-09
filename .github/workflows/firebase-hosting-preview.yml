@@ -35,6 +35,16 @@ on:
         type: string
         description: "Preview expire time"
         default: "7d"
+      create_site:
+        type: boolean
+        description: >
+          Create the Firebase Hosting site if it does not exist
+          (needed for new projects, where the default site is no longer provisioned automatically).
+          Skipped when target is set unless site_id is also set
+        default: true
+      site_id:
+        type: string
+        description: "Hosting site ID to create when create_site is true (defaults to gcp_project_id). Required for creation when target is set"
       timeout_minutes:
         description: "Timeout in minutes"
         type: number
@@ -105,6 +115,24 @@ jobs:
           fi
 
           echo "CHANNEL_ID=${CHANNEL_ID}" >> $GITHUB_ENV
+
+      - name: Create Firebase hosting site
+        if: inputs.create_site && (inputs.target == '' || inputs.site_id != '')
+        env:
+          NPM_CONFIG_IGNORE_SCRIPTS: true
+          NPM_CONFIG_MIN_RELEASE_AGE: 4
+          PROJECT_ID: ${{ inputs.gcp_project_id }}
+          SITE_ID: ${{ inputs.site_id || inputs.gcp_project_id }}
+          TOOLS_VERSION: ${{ inputs.tools_version }}
+        run: |
+          # A failing list (permissions, network, auth) stops the step with the real error
+          # instead of being mistaken for a missing site.
+          SITES=$(npx --yes "firebase-tools@${TOOLS_VERSION}" hosting:sites:list --project "${PROJECT_ID}" --json)
+          if jq -e --arg id "${SITE_ID}" '.result.sites[]? | select(.name | endswith("/sites/" + $id))' <<< "${SITES}" > /dev/null; then
+            echo "Hosting site ${SITE_ID} already exists"
+          else
+            npx --yes "firebase-tools@${TOOLS_VERSION}" hosting:sites:create "${SITE_ID}" --project "${PROJECT_ID}"
+          fi
 
       - name: Firebase deploy preview
         id: firebase-deploy-preview
