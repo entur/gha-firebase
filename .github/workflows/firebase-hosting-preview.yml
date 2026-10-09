@@ -93,6 +93,30 @@ jobs:
             inputs.package-manager == 'pnpm', 'pnpm install',
             'exit'
           )}}
+      - name: Find firebase-tools version
+        id: find-firebase-tools-version
+        env:
+          GHA_FIREBASE_TOOLS_VERSION: ${{inputs.tools_version}}
+          GHA_FIREBASE_PACKAGE_MANAGER: ${{inputs.package-manager}}
+        shell: bash
+        run: |
+          version=$GHA_FIREBASE_TOOLS_VERSION
+          
+          case "$GHA_FIREBASE_PACKAGE_MANAGER" in
+            "yarn")
+              version=$(yarn info firebase-tools --json | jq -r ".children.Version")
+              ;;
+            "npm")
+              version=$(npm info firebase-tools version)
+              ;;
+            "pnpm")
+              version=$(pnpm info firebase-tools version)
+              ;;
+          esac
+          
+          echo "Found firebase-tools version: $version"
+          
+          echo "firebase-tools-version=$version" >> "$GITHUB_OUTPUT"
 
       - name: Authenticate with GCP
         id: auth
@@ -142,7 +166,7 @@ jobs:
           firebaseServiceAccount: "${{ env.SERVICE_ACCOUNT_KEY }}"
           projectId: ${{ inputs.gcp_project_id }}
           entryPoint: ${{ inputs.entry_point }}
-          firebaseToolsVersion: ${{ inputs.tools_version }}
+          firebaseToolsVersion: ${{ steps.find-firebase-tools-version.outputs.firebase-tools-version }}
           target: ${{ inputs.target }}
           channelId: ${{ env.CHANNEL_ID }}
           expires: ${{ inputs.preview_expire }}
