@@ -19,20 +19,30 @@ jobs:
       build_artifact_path: build
 ```
 
+## New Firebase projects
+
+From October 15, 2026, new Firebase projects no longer get a default Hosting site on creation. The site is provisioned on demand, and a first deploy to a project without a site fails with `404 Site Not Found`.
+
+By default (`create_site: true`) the workflow checks whether the Hosting site exists and creates it only if it is missing, so existing projects are unaffected and new projects work without extra setup. The site ID defaults to `gcp_project_id`; set `site_id` if that subdomain is taken. Creating a site requires the service account to have `firebasehosting.sites.create` (e.g. Firebase Hosting Admin); it is only needed when the site is actually missing.
+
+When `target` is set the deploy goes to a site mapped in `.firebaserc`, which is not necessarily named after the project. In that case the step is skipped unless you also set `site_id`. Set `create_site: false` to turn the step off entirely.
+
 ## Inputs
 
 <!-- AUTO-DOC-INPUT:START - Do not remove or modify this section -->
 
-|                                           INPUT                                           |  TYPE  | REQUIRED |   DEFAULT   |                                 DESCRIPTION                                  |
-|-------------------------------------------------------------------------------------------|--------|----------|-------------|------------------------------------------------------------------------------|
-| <a name="input_build_artifact_name"></a>[build_artifact_name](#input_build_artifact_name) | string |  false   |             |                 Name of GitHub artifact to <br>add to build                  |
-| <a name="input_build_artifact_path"></a>[build_artifact_path](#input_build_artifact_path) | string |  false   |  `"build"`  |                             Path to the artifact                             |
-|             <a name="input_entry_point"></a>[entry_point](#input_entry_point)             | string |  false   |    `"."`    | Entry point folder to deploy <br>(Same folder as .firebase.json is located)  |
-|             <a name="input_environment"></a>[environment](#input_environment)             | string |   true   |             |                  Environment to deploy to (dev, tst, prd)                    |
-|        <a name="input_gcp_project_id"></a>[gcp_project_id](#input_gcp_project_id)         | string |   true   |             |                                GCP Project ID                                |
-|                    <a name="input_target"></a>[target](#input_target)                     | string |  false   |             |             Optional Firebase Hosting target name <br>to deploy              |
-|       <a name="input_timeout_minutes"></a>[timeout_minutes](#input_timeout_minutes)       | number |  false   |    `20`     |                              Timeout in minutes                              |
-|          <a name="input_tools_version"></a>[tools_version](#input_tools_version)          | string |  false   | `"15.18.0"` |          Optional Firebase-tools version to use <br>when deploying           |
+|                                           INPUT                                           |  TYPE   | REQUIRED |   DEFAULT   |                                                                                                      DESCRIPTION                                                                                                       |
+|-------------------------------------------------------------------------------------------|---------|----------|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| <a name="input_build_artifact_name"></a>[build_artifact_name](#input_build_artifact_name) | string  |  false   |             |                                                                                      Name of GitHub artifact to <br>add to build                                                                                       |
+| <a name="input_build_artifact_path"></a>[build_artifact_path](#input_build_artifact_path) | string  |  false   |  `"build"`  |                                                                                                  Path to the artifact                                                                                                  |
+|             <a name="input_create_site"></a>[create_site](#input_create_site)             | boolean |  false   |   `true`    | Create the Firebase Hosting site <br>if it does not exist <br>(needed for new projects, where the default site is no longer provisioned automatically). Skipped when target is <br>set unless site_id is also <br>set  |
+|             <a name="input_entry_point"></a>[entry_point](#input_entry_point)             | string  |  false   |    `"."`    |                                                                      Entry point folder to deploy <br>(Same folder as .firebase.json is located)                                                                       |
+|             <a name="input_environment"></a>[environment](#input_environment)             | string  |   true   |             |                                                                                       Environment to deploy to (dev, tst, prd)                                                                                         |
+|        <a name="input_gcp_project_id"></a>[gcp_project_id](#input_gcp_project_id)         | string  |   true   |             |                                                                                                     GCP Project ID                                                                                                     |
+|                   <a name="input_site_id"></a>[site_id](#input_site_id)                   | string  |  false   |             |                                         Hosting site ID to create <br>when create_site is true (defaults to gcp_project_id). <br>Required for creation when target <br>is set                                          |
+|                    <a name="input_target"></a>[target](#input_target)                     | string  |  false   |             |                                                                                  Optional Firebase Hosting target name <br>to deploy                                                                                   |
+|       <a name="input_timeout_minutes"></a>[timeout_minutes](#input_timeout_minutes)       | number  |  false   |    `20`     |                                                                                                   Timeout in minutes                                                                                                   |
+|          <a name="input_tools_version"></a>[tools_version](#input_tools_version)          | string  |  false   | `"15.18.0"` |                                                                               Optional Firebase-tools version to use <br>when deploying                                                                                |
 
 <!-- AUTO-DOC-INPUT:END -->
 
