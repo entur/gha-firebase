@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.3.0](https://github.com/entur/gha-firebase/compare/v1.2.10...v1.3.0) (2026-10-28)
+
+
+### Features
+
+* **firebase-hosting:** create Firebase Hosting site on demand before deploy ([#157](https://github.com/entur/gha-firebase/issues/157)) ([9cb8752](https://github.com/entur/gha-firebase/commit/9cb87527c0c28c6248fb1a71b769217789d77490))
+
+
+### Bug Fixes
+
+* **deps:** update node-version ([#160](https://github.com/entur/gha-firebase/issues/160)) ([2d65896](https://github.com/entur/gha-firebase/commit/2d6589661e49bd9b78bf288c771896ab8833790a))
+
 ## [1.2.10](https://github.com/entur/gha-firebase/compare/v1.2.9...v1.2.10) (2026-09-10)
 
 
