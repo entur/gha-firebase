@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/entur/gha-firebase/compare/v1.3.0...v1.3.1) (2026-11-04)
+
+
+### Bug Fixes
+
+* **deps:** bump the minor-and-patch group across 1 directory with 2 updates ([#158](https://github.com/entur/gha-firebase/issues/158)) ([211cb04](https://github.com/entur/gha-firebase/commit/211cb043e986764aef0435bd47ffcaa738e35fe7))
+
 ## [1.3.0](https://github.com/entur/gha-firebase/compare/v1.2.10...v1.3.0) (2026-10-28)
 
 
